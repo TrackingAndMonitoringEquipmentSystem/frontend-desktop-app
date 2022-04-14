@@ -1,8 +1,41 @@
 <template>
   <div id="app">
-    <router-view/>
+    <v-app>
+      <v-app-bar elevation="4" color="white" max-height="60">
+        <v-toolbar-title
+          ><v-img
+            contain
+            src="assets/logo.png"
+            max-width="136"
+            max-height="32"
+          ></v-img>
+        </v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-btn> วิธีการลงทะเบียน </v-btn>
+      </v-app-bar>
+      <router-view />
+      <v-overlay :value="isLoading">
+        <v-progress-circular
+          :size="100"
+          color="purple darken-4"
+          indeterminate
+        ></v-progress-circular>
+      </v-overlay>
+    </v-app>
   </div>
 </template>
+
+<script>
+export default {
+  name: "App",
+  data() {
+    return {
+      isLoading: false,
+    };
+  },
+};
+</script>
+
 
 <style lang="scss">
 #app {
@@ -15,3 +48,4 @@
   width: 100vw;
 }
 </style>
+
