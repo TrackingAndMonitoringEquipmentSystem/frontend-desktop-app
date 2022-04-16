@@ -14,8 +14,8 @@
               <QRCode :text="lockerId"></QRCode>
             </v-row>
           </div>
-          <div v-else>
-            <v-col>
+          <div v-else-if="!isRunningFaceRecognition" class="fill-height">
+            <v-col class="fill-height">
               <v-row>
                 <h5>ข้อมูลรายละเอียด</h5>
               </v-row>
@@ -36,6 +36,35 @@
                   <span>{{ description }}</span>
                 </v-col>
               </v-row>
+              <v-row>
+                <v-col>
+                  <span>Locker ID :</span>
+                </v-col>
+                <v-col>
+                  <span>{{ lockerId }}</span>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col>
+                  <span>สถานที่ตั้ง :</span>
+                </v-col>
+                <v-col>
+                  <span>{{ location }}</span>
+                </v-col>
+              </v-row>
+              <v-col></v-col>
+              <v-btn @click="setRunRecognition(true)"
+                >กดเพื่อเริ่มสแกนใบหน้า</v-btn
+              >
+            </v-col>
+          </div>
+          <div v-else class="fill-height">
+            <v-col class="fill-height">
+              <img :src="recogImage" alt="live recog image" />
+              <v-spacer></v-spacer>
+              <v-btn @click="setRunRecognition(false)"
+                >กดเพื่อหยุดแสกนใบหน้า</v-btn
+              >
             </v-col>
           </div>
         </v-col>
@@ -60,6 +89,7 @@ export default {
       isRunningFaceRecognition: false,
       locker: null,
       isLoading: false,
+      recogImage: null,
     };
   },
   created() {
@@ -94,6 +124,7 @@ export default {
     });
     this.socket.on("faceRecognitionResult", (result) => {
       console.log("->result:", result);
+      this.recogImage = `data:image/png;base64, ${result.image}`;
     });
     this.se;
   },
@@ -112,6 +143,9 @@ export default {
     },
     description() {
       return this.locker?.description ?? "";
+    },
+    location() {
+      return this.locker?.location ?? "";
     },
   },
   methods: {
