@@ -11,10 +11,10 @@
           ></v-img>
         </v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn> วิธีการลงทะเบียน </v-btn>
+        <!-- <v-btn> วิธีการลงทะเบียน </v-btn> -->
       </v-app-bar>
       <router-view />
-      <v-overlay :value="isLoading">
+      <v-overlay :value="loadingStore.isLoading">
         <v-progress-circular
           :size="100"
           color="purple darken-4"
@@ -26,11 +26,12 @@
 </template>
 
 <script>
+import { loadingStore } from "./stores/loading";
 export default {
   name: "App",
   data() {
     return {
-      isLoading: false,
+      loadingStore: loadingStore(),
     };
   },
 };
