@@ -59,7 +59,7 @@ export default {
     this.socket.on("faceRecognitionResult", (result) => {
       this.isFirstFrameCamed = true;
       console.log("->result:", result);
-      this.recogImage = `data:image/png;base64, ${result.image}`;
+      this.recogImage = `data:image/jpg;base64, ${result.image}`;
     });
     this.socket.emit("startFaceRecognition");
   },
