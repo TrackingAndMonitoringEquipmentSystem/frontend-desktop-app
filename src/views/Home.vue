@@ -11,7 +11,7 @@
               ><span>LockerId :&nbsp;</span><span>{{ lockerId }}</span></v-row
             >
             <v-row justify="center" class="ma-5">
-              <QRCode :text="lockerId"></QRCode>
+             
             </v-row>
           </div>
           <div v-else class="fill-height">
@@ -65,14 +65,14 @@
 </template>
 
 <script>
-import VueQRCodeComponent from "vue-qrcode-component";
+
 import io from "socket.io-client";
 import axios from "axios";
 import { loadingStore } from "../stores/loading";
 export default {
   name: "Home",
   components: {
-    QRCode: VueQRCodeComponent,
+  
   },
   data() {
     return {
