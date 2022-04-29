@@ -1,25 +1,30 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import FaceRecognition from '../views/FaceRecognition.vue'
-
-Vue.use(VueRouter)
+import Vue from "vue";
+import VueRouter from "vue-router";
+import Home from "../views/Home.vue";
+import FaceRecognition from "../views/FaceRecognition.vue";
+import UnlockLocker from "../views/UnlockLocker";
+Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: "/",
+    name: "Home",
+    component: Home,
   },
   {
-    path: '/face-recognition',
-    name: 'FaceRecognition',
+    path: "/face-recognition",
+    name: "FaceRecognition",
     component: FaceRecognition,
-  }
-]
+  },
+  {
+    path: "/unlock-locker",
+    name: "UnlockLocker",
+    component: UnlockLocker,
+  },
+];
 
 const router = new VueRouter({
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;

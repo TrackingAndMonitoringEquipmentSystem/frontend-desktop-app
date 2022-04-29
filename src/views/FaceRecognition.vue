@@ -30,7 +30,7 @@
 
 <script>
 import io from "socket.io-client";
-
+import { userStore } from "../stores/userStore";
 export default {
   name: "FaceRecognition",
   data() {
@@ -41,6 +41,7 @@ export default {
       isLoading: false,
       recogImage: null,
       isFirstFrameCamed: false,
+      userStore: userStore(),
     };
   },
   mounted() {
@@ -58,11 +59,13 @@ export default {
     });
     this.socket.on("faceRecognitionResult", (result) => {
       this.isFirstFrameCamed = true;
-      console.log("->result:", result);
-      if ((result.isDetected = false || result.isDetected == true)) {
+      if (result.isDetectedFace !== undefined) {
         this.recogImage = `data:image/jpg;base64, ${result.image}`;
-      } else if() {
-
+      } else if (result.message === "Granted") {
+        this.userStore.setUserId(result.userId);
+        if (this.$router.name != "UnlockLocker") {
+          this.$router.replace({ path: "/unlock-locker" });
+        }
       }
     });
     this.socket.emit("startFaceRecognition");
