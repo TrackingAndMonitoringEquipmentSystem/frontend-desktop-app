@@ -31,6 +31,7 @@
 <script>
 import io from "socket.io-client";
 import { userStore } from "../stores/userStore";
+import { popupStore } from "../stores/popupStore";
 export default {
   name: "FaceRecognition",
   data() {
@@ -42,6 +43,7 @@ export default {
       recogImage: null,
       isFirstFrameCamed: false,
       userStore: userStore(),
+      popupStore: popupStore(),
     };
   },
   mounted() {
@@ -66,6 +68,14 @@ export default {
         if (this.$router.name != "UnlockLocker") {
           this.$router.replace({ path: "/unlock-locker" });
         }
+      } else {
+        this.popupStore.title = "ผลลัพธ์การยืนยันตัวตนด้วยใบหน้า";
+        this.popupStore.message = "คุณไม่มีสิทธิ์เข้าถึงการใช้งานล็อคเกอร์";
+        this.popupStore.onBackPreesed = (() => {
+          this.popupStore.isShow = false;
+          this.$router.replace({ path: "/" });
+        }).bind(this);
+        this.popupStore.isShow = true;
       }
     });
     this.socket.emit("startFaceRecognition");

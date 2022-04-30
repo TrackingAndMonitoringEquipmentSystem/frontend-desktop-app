@@ -54,7 +54,6 @@ export default {
     this.socket.on("logStateChanged", (data) => {
       this.isLock = data;
     });
-    console.log("->this.userStore.userId:", this.userStore.userId);
   },
   methods: {
     unlock() {
@@ -71,7 +70,9 @@ export default {
     borrow() {
       this.socket.emit("borrow", this.userStore.userId);
     },
-    _return() {},
+    _return() {
+      this.socket.emit("return", this.userStore.userId);
+    },
   },
 };
 </script>
